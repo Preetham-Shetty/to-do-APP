@@ -127,7 +127,7 @@ class _EditTaskDialogState extends State<EditTaskDialog> {
                 ),
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.tabOne),
+                        backgroundColor: const Color(0xff73d2de)),
                     onPressed: () {
                       services.updateTask(widget.editTitle, titleEdit.text,
                           descEdit.text, widget.date);
@@ -176,7 +176,7 @@ class _EditTaskDialogState extends State<EditTaskDialog> {
                     alignment: Alignment.bottomRight,
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.tabOne),
+                            backgroundColor: const Color(0xff73d2de)),
                         onPressed: () {
                           services.completeTask(widget.editTitle);
                           Navigator.of(context).pop();

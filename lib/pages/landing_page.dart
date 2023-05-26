@@ -2,11 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
+import 'package:todoapp/pages/add_task_page.dart';
 import 'package:todoapp/services/db_services.dart';
 import 'package:todoapp/utils/colors.dart';
 import 'package:todoapp/utils/dimensions.dart';
 import 'package:todoapp/utils/text.dart';
-import 'package:todoapp/widgets/add_task_dialog.dart';
 import 'package:todoapp/widgets/logout_button.dart';
 import 'package:todoapp/widgets/recent_tabs.dart';
 import 'package:todoapp/widgets/tasks_list.dart';
@@ -26,14 +26,17 @@ class _LandingPageState extends State<LandingPage> {
   Widget build(BuildContext context) {
     String displayDate = DateFormat.yMMMMd().format(currentDate);
     return Scaffold(
+      extendBodyBehindAppBar: true,
       floatingActionButton: FloatingActionButton.small(
-        backgroundColor: AppColors.tabOne,
+        backgroundColor: const Color(0xff73d2de),
         onPressed: () {
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return const AddTaskDialog();
-              });
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const AddTaskPage()));
+          // showDialog(
+          //     context: context,
+          //     builder: (BuildContext context) {
+          //       return const AddTaskDialog();
+          //     });
         },
         child: const Icon(
           Icons.add,
@@ -76,14 +79,7 @@ class _LandingPageState extends State<LandingPage> {
         ),
       ),
       appBar: AppBar(
-        iconTheme: const IconThemeData(color: AppColors.black),
-        title: AppText(
-          text: displayDate,
-          fontSize: 12,
-          fontWeight: FontWeight.bold,
-          fontColor: AppColors.black,
-          fontFamily: 'ProximaNova',
-        ),
+        iconTheme: const IconThemeData(color: AppColors.white),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
@@ -115,54 +111,107 @@ class _LandingPageState extends State<LandingPage> {
             }
             return SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
-              child: Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: Dimensions.screenWidth * 0.03,
-                      vertical: Dimensions.screenHeight * 0.01),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Stack(
+                      alignment: Alignment.centerRight,
                       children: [
-                        const AppText(
-                          text: "Tasks Summary",
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          fontColor: AppColors.black,
-                          fontFamily: 'ProximaNova',
+                        Image.asset(
+                          'assets/images/home_back.jpg',
+                          fit: BoxFit.cover,
+                          height: Dimensions.screenHeight * 0.4,
                         ),
-                        const SizedBox(
-                          height: 20,
+                        Positioned(
+                          top: Dimensions.screenHeight * 0.1,
+                          left: Dimensions.screenWidth * 0.02,
+                          child: const AppText(
+                            text: "Your\n Things",
+                            fontSize: 40,
+                            fontColor: Colors.white,
+                          ),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
-                            RecentTabs(
-                              color: AppColors.tabOne,
-                              title: 'Total Tasks',
-                              shadowColor: AppColors.tabOnehadow,
-                              tabOne: true,
-                            ),
-                            RecentTabs(
-                                color: AppColors.tabTwo,
-                                title: 'Completed',
-                                shadowColor: Colors.transparent,
-                                tabOne: false)
-                          ],
+                        Positioned(
+                          bottom: Dimensions.screenHeight * 0.04,
+                          left: Dimensions.screenWidth * 0.05,
+                          child: AppText(
+                            text: displayDate,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            fontColor: Colors.grey,
+                          ),
                         ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        const AppText(
-                          text: "All Tasks",
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          fontColor: AppColors.black,
-                          fontFamily: 'ProximaNova',
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        const TaskList()
-                      ])),
+                        Container(
+                          height: Dimensions.screenHeight * 0.4,
+                          width: Dimensions.screenWidth * 0.45,
+                          color: const Color.fromARGB(70, 0, 0, 0),
+                          child: Container(
+                            margin: EdgeInsets.only(
+                                top: Dimensions.screenHeight * 0.2),
+                            child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: const [
+                                  RecentTabs(tabOne: true),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  RecentTabs(tabOne: false),
+                                ]),
+                          ),
+                        )
+                      ],
+                    )
+                    // const AppText(
+                    //   text: "Tasks Summary",
+                    //   fontSize: 20,
+                    //   fontWeight: FontWeight.bold,
+                    //   fontColor: AppColors.black,
+                    //   fontFamily: 'ProximaNova',
+                    // ),
+                    // const SizedBox(
+                    //   height: 20,
+                    // ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //   children: const [
+                    //     RecentTabs(
+                    //       color: AppColors.tabOne,
+                    //       title: 'Total Tasks',
+                    //       shadowColor: AppColors.tabOnehadow,
+                    //       tabOne: true,
+                    //     ),
+                    //     RecentTabs(
+                    //         color: AppColors.tabTwo,
+                    //         title: 'Completed',
+                    //         shadowColor: Colors.transparent,
+                    //         tabOne: false)
+                    //   ],
+                    // ),
+                    ,
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: Dimensions.screenWidth * 0.03),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: const [
+                          AppText(
+                            text: "All Tasks",
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            fontColor: AppColors.black,
+                            fontFamily: 'ProximaNova',
+                          ),
+                          // SizedBox(
+                          //   height: 20,
+                          // ),
+                          TaskList()
+                        ],
+                      ),
+                    )
+                  ]),
             );
           }),
     );

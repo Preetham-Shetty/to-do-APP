@@ -25,11 +25,11 @@ class _LogoutButtonState extends State<LogoutButton> {
             vertical: Dimensions.screenHeight * 0.01),
         margin: EdgeInsets.only(bottom: Dimensions.screenHeight * 0.02),
         decoration: const BoxDecoration(
-            color: AppColors.themeColor,
+            color: Color(0xff73d2de),
             boxShadow: [
               BoxShadow(
                   offset: Offset(3, 4),
-                  color: AppColors.tabOnehadow,
+                  color: AppColors.shadowBlack,
                   blurRadius: 5.0)
             ],
             borderRadius: BorderRadius.all(Radius.circular(20))),

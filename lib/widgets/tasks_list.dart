@@ -32,6 +32,7 @@ class _TaskListState extends State<TaskList> {
             child: ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
+                padding: EdgeInsets.zero,
                 itemCount: snapshot.data.docs.length,
                 itemBuilder: (context, index) {
                   DocumentSnapshot data = snapshot.data.docs[index];

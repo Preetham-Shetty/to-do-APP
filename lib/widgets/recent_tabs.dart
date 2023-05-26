@@ -6,15 +6,9 @@ import 'package:todoapp/utils/dimensions.dart';
 import 'package:todoapp/utils/text.dart';
 
 class RecentTabs extends StatelessWidget {
-  final Color color;
-  final String title;
-  final Color shadowColor;
   final bool tabOne;
   const RecentTabs({
-    required this.color,
-    required this.title,
     required this.tabOne,
-    required this.shadowColor,
     super.key,
   });
 
@@ -36,64 +30,84 @@ class RecentTabs extends StatelessWidget {
               completeCount++;
             }
           }
-          return Container(
-            width: Dimensions.screenWidth * 0.45,
-            padding: EdgeInsets.symmetric(
-                horizontal: Dimensions.screenWidth * 0.03,
-                vertical: Dimensions.screenHeight * 0.01),
-            decoration: BoxDecoration(
-                color: color,
-                borderRadius: const BorderRadius.all(Radius.circular(20)),
-                boxShadow: [
-                  BoxShadow(
-                      offset: const Offset(5, 6),
-                      color: shadowColor,
-                      blurRadius: 10)
-                ]),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Icon(
-                  tabOne
-                      ? Icons.all_inclusive_rounded
-                      : Icons.add_task_outlined,
-                  color: AppColors.white,
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  children: [
-                    Flexible(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          AppText(
-                            text: title,
-                            fontSize: 20,
-                            fontColor: AppColors.white,
-                            fontWeight: FontWeight.bold,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          AppText(
-                            text: tabOne
-                                ? snapshot.data.docs!.length.toString()
-                                : completeCount.toString(),
-                            fontSize: 30,
-                            fontColor: AppColors.white,
-                            fontWeight: FontWeight.bold,
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                )
-              ],
-            ),
+          return Column(
+            children: [
+              AppText(
+                text: tabOne
+                    ? snapshot.data.docs!.length.toString()
+                    : completeCount.toString(),
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+                fontColor: AppColors.white,
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              AppText(
+                text: tabOne ? "Completd" : "Pending",
+                fontSize: 12,
+                fontColor: AppColors.white,
+              )
+            ],
           );
+          // Container(
+          //   width: Dimensions.screenWidth * 0.45,
+          //   padding: EdgeInsets.symmetric(
+          //       horizontal: Dimensions.screenWidth * 0.03,
+          //       vertical: Dimensions.screenHeight * 0.01),
+          //   decoration: BoxDecoration(
+          //       color: color,
+          //       borderRadius: const BorderRadius.all(Radius.circular(20)),
+          //       boxShadow: [
+          //         BoxShadow(
+          //             offset: const Offset(5, 6),
+          //             color: shadowColor,
+          //             blurRadius: 10)
+          //       ]),
+          //   child: Column(
+          //     crossAxisAlignment: CrossAxisAlignment.start,
+          //     children: [
+          //       Icon(
+          //         tabOne
+          //             ? Icons.all_inclusive_rounded
+          //             : Icons.add_task_outlined,
+          //         color: AppColors.white,
+          //       ),
+          //       const SizedBox(
+          //         height: 10,
+          //       ),
+          //       Row(
+          //         children: [
+          //           Flexible(
+          //             child: Column(
+          //               crossAxisAlignment: CrossAxisAlignment.start,
+          //               children: [
+          //                 AppText(
+          //                   text: title,
+          //                   fontSize: 20,
+          //                   fontColor: AppColors.white,
+          //                   fontWeight: FontWeight.bold,
+          //                   overflow: TextOverflow.ellipsis,
+          //                 ),
+          //                 const SizedBox(
+          //                   height: 10,
+          //                 ),
+          //                 AppText(
+          //                   text: tabOne
+          //                       ? snapshot.data.docs!.length.toString()
+          //                       : completeCount.toString(),
+          //                   fontSize: 30,
+          //                   fontColor: AppColors.white,
+          //                   fontWeight: FontWeight.bold,
+          //                 )
+          //               ],
+          //             ),
+          //           ),
+          //         ],
+          //       )
+          //     ],
+          //   ),
+          // );
         });
   }
 }
